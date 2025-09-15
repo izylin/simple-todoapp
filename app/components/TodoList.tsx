@@ -5,6 +5,7 @@ import {
   Table,
   TableBody,
   TableHead,
+  TableHeader,
   TableRow,
 } from "@/components/ui/table";
 
@@ -15,14 +16,14 @@ interface TodoListProps {
 const TodoList: React.FC<TodoListProps> = ({ tasks }) => {
   return (
     <div className='overflow-x-auto'>
-      <Table className='table w-full'>
+      <Table>
         {/* head */}
-        <thead>
+        <TableHeader>
           <TableRow>
             <TableHead>Tasks</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
-        </thead>
+        </TableHeader>
         <TableBody>
           {tasks.map((task) => (
             <Task key={task.id} task={task} />

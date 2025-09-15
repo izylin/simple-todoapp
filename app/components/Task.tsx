@@ -57,7 +57,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
                 placeholder='Type here'
                 className='input input-bordered w-full'
               />
-              <Button type='submit' className='btn'>
+              <Button type='submit'>
                 Submit
               </Button>
             </div>
@@ -74,7 +74,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
             Are you sure, you want to delete this task?
           </h3>
           <div className='modal-action'>
-            <Button onClick={() => handleDeleteTask(task.id)} className='btn'>
+            <Button onClick={() => handleDeleteTask(task.id)}>
               Yes
             </Button>
           </div>
