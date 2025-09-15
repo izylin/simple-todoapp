@@ -6,6 +6,9 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Modal from "./Modal";
 import { useRouter } from "next/navigation";
 import { deleteTodo, editTodo } from "@/api";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { TableRow } from "@/components/ui/table";
 
 interface TaskProps {
   task: ITask;
@@ -34,7 +37,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   };
 
   return (
-    <tr key={task.id}>
+    <TableRow key={task.id}>
       <td className='w-full'>{task.text}</td>
       <td className='flex gap-5'>
         <FiEdit
@@ -47,16 +50,16 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           <form onSubmit={handleSubmitEditTodo}>
             <h3 className='font-bold text-lg'>Edit task</h3>
             <div className='modal-action'>
-              <input
+              <Input
                 value={taskToEdit}
                 onChange={(e) => setTaskToEdit(e.target.value)}
                 type='text'
                 placeholder='Type here'
                 className='input input-bordered w-full'
               />
-              <button type='submit' className='btn'>
+              <Button type='submit' className='btn'>
                 Submit
-              </button>
+              </Button>
             </div>
           </form>
         </Modal>
@@ -71,13 +74,13 @@ const Task: React.FC<TaskProps> = ({ task }) => {
             Are you sure, you want to delete this task?
           </h3>
           <div className='modal-action'>
-            <button onClick={() => handleDeleteTask(task.id)} className='btn'>
+            <Button onClick={() => handleDeleteTask(task.id)} className='btn'>
               Yes
-            </button>
+            </Button>
           </div>
         </Modal>
       </td>
-    </tr>
+    </TableRow>
   );
 };
 
