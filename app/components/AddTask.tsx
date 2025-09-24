@@ -19,7 +19,7 @@ const AddTask = () => {
 
   type AddTaskFormValues = {
     text: string;
-    description?: string;
+    description: string;
   };
 
   const form = useForm<AddTaskFormValues>({
@@ -34,7 +34,7 @@ const AddTask = () => {
     const payload: ITask = {
       id: uuidv4(),
       text: values.text,
-      description: values.description?.trim() ? values.description : undefined,
+      description: values.description,
     };
     await addTodo(payload);
     form.reset();
@@ -72,6 +72,7 @@ const AddTask = () => {
             <FormField
               control={form.control}
               name='description'
+              rules={{ required: "Description is required" }}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Description</FormLabel>

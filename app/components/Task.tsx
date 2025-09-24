@@ -20,14 +20,14 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
   const [openModalDeleted, setOpenModalDeleted] = useState<boolean>(false);
   const [taskToEdit, setTaskToEdit] = useState<string>(task.text);
-  const [descriptionToEdit, setDescriptionToEdit] = useState<string>(task.description ?? "");
+  const [descriptionToEdit, setDescriptionToEdit] = useState<string>(task.description);
 
   const handleSubmitEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     await editTodo({
       id: task.id,
       text: taskToEdit,
-      description: descriptionToEdit.trim() ? descriptionToEdit : undefined,
+      description: descriptionToEdit,
     });
     setOpenModalEdit(false);
     router.refresh();
@@ -59,7 +59,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
         <Modal modalOpen={openModalEdit} setModalOpen={setOpenModalEdit}>
           <form onSubmit={handleSubmitEditTodo}>
             <h3 className='font-bold text-lg'>Edit task</h3>
-            <div className='modal-action flex w-full flex-col gap-3'>
+            <div className='flex w-full flex-col gap-3'>
               <Input
                 value={taskToEdit}
                 onChange={(e) => setTaskToEdit(e.target.value)}
@@ -72,6 +72,8 @@ const Task: React.FC<TaskProps> = ({ task }) => {
                 onChange={(e) => setDescriptionToEdit(e.target.value)}
                 placeholder='Optional description'
               />
+            </div>
+            <div className='modal-action'>
               <Button type='submit'>
                 Submit
               </Button>
