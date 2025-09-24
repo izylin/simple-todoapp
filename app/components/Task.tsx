@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { deleteTodo, editTodo } from "@/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { TableRow } from "@/components/ui/table";
 
 interface TaskProps {
@@ -19,12 +20,14 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
   const [openModalDeleted, setOpenModalDeleted] = useState<boolean>(false);
   const [taskToEdit, setTaskToEdit] = useState<string>(task.text);
+  const [descriptionToEdit, setDescriptionToEdit] = useState<string>(task.description);
 
   const handleSubmitEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     await editTodo({
       id: task.id,
       text: taskToEdit,
+      description: descriptionToEdit,
     });
     setOpenModalEdit(false);
     router.refresh();
@@ -38,7 +41,14 @@ const Task: React.FC<TaskProps> = ({ task }) => {
 
   return (
     <TableRow key={task.id}>
-      <td className='w-full'>{task.text}</td>
+      <td className='w-full'>
+        <div className='flex flex-col gap-1'>
+          <span>{task.text}</span>
+          {task.description && (
+            <span className='text-sm text-muted-foreground'>{task.description}</span>
+          )}
+        </div>
+      </td>
       <td className='flex gap-5'>
         <FiEdit
           onClick={() => setOpenModalEdit(true)}
@@ -46,17 +56,28 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           className='text-blue-500'
           size={25}
         />
-        <Modal modalOpen={openModalEdit} setModalOpen={setOpenModalEdit}>
+        <Modal
+          modalOpen={openModalEdit}
+          setModalOpen={setOpenModalEdit}
+          className="rounded-2xl bg-white text-zinc-900 border-zinc-200 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_-10px_rgba(0,0,0,0.3)] dark:bg-zinc-900 dark:text-zinc-50 dark:border-zinc-700"
+        >
           <form onSubmit={handleSubmitEditTodo}>
             <h3 className='font-bold text-lg'>Edit task</h3>
-            <div className='modal-action'>
+            <div className='flex w-full flex-col gap-3'>
               <Input
                 value={taskToEdit}
                 onChange={(e) => setTaskToEdit(e.target.value)}
                 type='text'
-                placeholder='Type here'
-                className='input input-bordered w-full'
+                placeholder='Title'
+                className='w-full'
               />
+              <Textarea
+                value={descriptionToEdit}
+                onChange={(e) => setDescriptionToEdit(e.target.value)}
+                placeholder='Optional description'
+              />
+            </div>
+            <div className='modal-action'>
               <Button type='submit'>
                 Submit
               </Button>
@@ -69,7 +90,11 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           className='text-red-500'
           size={25}
         />
-        <Modal modalOpen={openModalDeleted} setModalOpen={setOpenModalDeleted}>
+        <Modal
+          modalOpen={openModalDeleted}
+          setModalOpen={setOpenModalDeleted}
+          className="rounded-2xl bg-white text-zinc-900 border-zinc-200 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_-10px_rgba(0,0,0,0.3)] dark:bg-zinc-900 dark:text-zinc-50 dark:border-zinc-700"
+        >
           <h3 className='text-lg'>
             Are you sure, you want to delete this task?
           </h3>

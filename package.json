@@ -10,6 +10,8 @@
     "json-server": "json-server --watch data/todos.json --port 3001"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
@@ -23,11 +25,13 @@
     "next": "^15.5.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.62.0",
     "react-icons": "^4.8.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.0.3",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@types/uuid": "^9.0.1",
