@@ -56,7 +56,11 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           className='text-blue-500'
           size={25}
         />
-        <Modal modalOpen={openModalEdit} setModalOpen={setOpenModalEdit}>
+        <Modal
+          modalOpen={openModalEdit}
+          setModalOpen={setOpenModalEdit}
+          className="rounded-2xl bg-white text-zinc-900 border-zinc-200 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_-10px_rgba(0,0,0,0.3)] dark:bg-zinc-900 dark:text-zinc-50 dark:border-zinc-700"
+        >
           <form onSubmit={handleSubmitEditTodo}>
             <h3 className='font-bold text-lg'>Edit task</h3>
             <div className='flex w-full flex-col gap-3'>
@@ -86,7 +90,11 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           className='text-red-500'
           size={25}
         />
-        <Modal modalOpen={openModalDeleted} setModalOpen={setOpenModalDeleted}>
+        <Modal
+          modalOpen={openModalDeleted}
+          setModalOpen={setOpenModalDeleted}
+          className="rounded-2xl bg-white text-zinc-900 border-zinc-200 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_-10px_rgba(0,0,0,0.3)] dark:bg-zinc-900 dark:text-zinc-50 dark:border-zinc-700"
+        >
           <h3 className='text-lg'>
             Are you sure, you want to delete this task?
           </h3>

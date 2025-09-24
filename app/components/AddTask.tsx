@@ -51,7 +51,11 @@ const AddTask = () => {
         Add new task <AiOutlinePlus className='ml-2' size={18} />
       </Button>
 
-      <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
+      <Modal
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        className="rounded-2xl bg-white text-zinc-900 border-zinc-200 shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_10px_30px_-10px_rgba(0,0,0,0.3)] dark:bg-zinc-900 dark:text-zinc-50 dark:border-zinc-700"
+      >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
             <h3 className='font-bold text-lg'>Add new task</h3>
