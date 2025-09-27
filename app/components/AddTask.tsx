@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import Modal from "./Modal";
 import { useState } from "react";
 import { addTodo } from "@/api";
-import { useRouter } from "next/navigation";
+import { useTodoStore } from "@/lib/store";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import type { ITask } from "@/types/tasks";
 
 const AddTask = () => {
-  const router = useRouter();
+  const addTask = useTodoStore((state) => state.addTask);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   type AddTaskFormValues = {
@@ -37,9 +37,9 @@ const AddTask = () => {
       description: values.description,
     };
     await addTodo(payload);
+    addTask(payload);
     form.reset();
     setModalOpen(false);
-    router.refresh();
   };
 
   return (
