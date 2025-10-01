@@ -4,8 +4,7 @@ import { ITask } from "@/types/tasks";
 import { FormEventHandler, useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Modal from "./Modal";
-import { useRouter } from "next/navigation";
-import { deleteTodo, editTodo } from "@/api";
+import { useTodoStore } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,7 +15,7 @@ interface TaskProps {
 }
 
 const Task: React.FC<TaskProps> = ({ task }) => {
-  const router = useRouter();
+  const { deleteTask, editTask } = useTodoStore();
   const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
   const [openModalDeleted, setOpenModalDeleted] = useState<boolean>(false);
   const [taskToEdit, setTaskToEdit] = useState<string>(task.text);
@@ -24,19 +23,25 @@ const Task: React.FC<TaskProps> = ({ task }) => {
 
   const handleSubmitEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    await editTodo({
-      id: task.id,
-      text: taskToEdit,
-      description: descriptionToEdit,
-    });
-    setOpenModalEdit(false);
-    router.refresh();
+    try {
+      await editTask({
+        id: task.id,
+        text: taskToEdit,
+        description: descriptionToEdit,
+      });
+      setOpenModalEdit(false);
+    } catch (error) {
+      console.error('Failed to edit task:', error);
+    }
   };
 
   const handleDeleteTask = async (id: string) => {
-    await deleteTodo(id);
-    setOpenModalDeleted(false);
-    router.refresh();
+    try {
+      await deleteTask(id);
+      setOpenModalDeleted(false);
+    } catch (error) {
+      console.error('Failed to delete task:', error);
+    }
   };
 
   return (
