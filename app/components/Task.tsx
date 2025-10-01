@@ -4,7 +4,6 @@ import { ITask } from "@/types/tasks";
 import { FormEventHandler, useState } from "react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import Modal from "./Modal";
-import { deleteTodo, editTodo } from "@/api";
 import { useTodoStore } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,12 +24,11 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   const handleSubmitEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     try {
-      const updatedTask = await editTodo({
+      await editTask({
         id: task.id,
         text: taskToEdit,
         description: descriptionToEdit,
       });
-      editTask(updatedTask);
       setOpenModalEdit(false);
     } catch (error) {
       console.error('Failed to edit task:', error);
@@ -39,8 +37,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
 
   const handleDeleteTask = async (id: string) => {
     try {
-      await deleteTodo(id);
-      deleteTask(id);
+      await deleteTask(id);
       setOpenModalDeleted(false);
     } catch (error) {
       console.error('Failed to delete task:', error);

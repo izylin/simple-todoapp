@@ -3,7 +3,6 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import Modal from "./Modal";
 import { useState } from "react";
-import { addTodo } from "@/api";
 import { useTodoStore } from "@/lib/store";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
@@ -36,8 +35,7 @@ const AddTask = () => {
       text: values.text,
       description: values.description,
     };
-    await addTodo(payload);
-    addTask(payload);
+    await addTask(payload);
     form.reset();
     setModalOpen(false);
   };

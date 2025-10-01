@@ -1,4 +1,4 @@
-import { getAllTodos } from "@/api";
+import { getAllTodos } from "@/lib/store";
 import TodoApp from "./components/TodoApp";
 
 export default async function Home() {
